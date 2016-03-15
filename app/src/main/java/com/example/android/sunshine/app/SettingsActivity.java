@@ -1,20 +1,15 @@
 package com.example.android.sunshine.app;
 
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.v4.app.NavUtils;
@@ -122,19 +117,19 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setupActionBar();
+//        setupActionBar();
     }
 
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
-//    private void setupActionBar() {
-//        ActionBar actionBar = getActionBar();
-//        if (actionBar != null) {
-//            // Show the Up button in the action bar.
- //           actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-//    }
+   /* private void setupActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }*/
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -200,6 +195,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
+/*
     @SuppressLint("ValidFragment")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class GeneralPreferenceFragment extends PreferenceFragment {
@@ -215,8 +211,9 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             // guidelines.
             bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         }
+*/
 
-        @Override
+/*        @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
@@ -225,7 +222,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             }
             return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     /**
      * This fragment shows notification preferences only. It is used when the
@@ -261,7 +258,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
      * This fragment shows data and sync preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
-    @SuppressLint("ValidFragment")
+ /*   @SuppressLint("ValidFragment")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class DataSyncPreferenceFragment extends PreferenceFragment {
         @Override
@@ -286,5 +283,5 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             }
             return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }
