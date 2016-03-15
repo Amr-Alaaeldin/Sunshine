@@ -1,8 +1,11 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -33,6 +37,19 @@ public class ForecastFragment extends Fragment {
     private ArrayAdapter wForecastAdapter;
 
     public ForecastFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
+
+    public void updateWeather() {
+        FetchWeatherTask WT = new FetchWeatherTask();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        WT.execute(location);
     }
 
     @Override
@@ -84,8 +101,7 @@ public class ForecastFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            FetchWeatherTask WT = new FetchWeatherTask();
-            WT.execute("Cairo");
+            updateWeather();
             return true;
         }
 
@@ -100,9 +116,19 @@ public class ForecastFragment extends Fragment {
         Forecast.add("Today - Sunny - 88/63");
         Forecast.add("Tomorrow - Cloudy - 72/43");
         Forecast.add("Sunday - Rainy - 63/32");
-        wForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, Forecast);
+        wForecastAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, Forecast);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(wForecastAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String forecast = (String) wForecastAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT,forecast);
+                startActivity(intent);
+            }
+        });
+
 
         return rootView;
     }
@@ -125,8 +151,7 @@ public class ForecastFragment extends Fragment {
             String format = "json";
             String units = "metric";
             int numDays = 7;
-            String OPEN_WEATHER_MAP_API_KEY = "44db6a862fba0b067b1930da0d769e98";
-
+            String OPEN_WEATHER_MAP_API_KEY = "b1b15e88fa797225412429c1c50c122a";
 
             try
 
