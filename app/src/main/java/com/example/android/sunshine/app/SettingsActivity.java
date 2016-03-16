@@ -1,6 +1,7 @@
 package com.example.android.sunshine.app;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -117,19 +118,25 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setupActionBar();
+        addPreferencesFromResource(R.xml.pref_general);
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        setupActionBar();
     }
 
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
-   /* private void setupActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
+    private void setupActionBar() {
+        int currentAPIVersion = android.os.Build.VERSION.SDK_INT;
+
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+
+            // RUN THE CODE SPECIFIC TO THE API LEVELS ABOVE HONEYCOMB (API 11+)
+            ActionBar actionBar = getActionBar();
+            if (actionBar!=null)
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }*/
+    }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
